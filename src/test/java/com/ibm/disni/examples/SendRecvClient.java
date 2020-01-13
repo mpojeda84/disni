@@ -55,7 +55,7 @@ public class SendRecvClient implements RdmaEndpointFactory<SendRecvClient.Custom
 
 		//connect to the server
  		InetAddress ipAddress = InetAddress.getByName(host);
- 		InetSocketAddress address = new InetSocketAddress(ipAddress, 12569);
+ 		InetSocketAddress address = new InetSocketAddress(ipAddress, port);
 		endpoint.connect(address, 1000);
 		System.out.println("SimpleClient::client channel set up ");
 
@@ -63,7 +63,7 @@ public class SendRecvClient implements RdmaEndpointFactory<SendRecvClient.Custom
 		//buffers beforehand.
 		//let's send one of those buffers out using a send operation
 		ByteBuffer sendBuf = endpoint.getSendBuf();
-		sendBuf.asCharBuffer().put("200");
+		sendBuf.asLongBuffer().put(200);
 		sendBuf.clear();
 		SVCPostSend postSend = endpoint.postSend(endpoint.getWrList_send());
 		postSend.getWrMod(0).setWr_id(4444);
