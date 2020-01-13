@@ -63,7 +63,7 @@ public class SendRecvClient implements RdmaEndpointFactory<SendRecvClient.Custom
 		//buffers beforehand.
 		//let's send one of those buffers out using a send operation
 		ByteBuffer sendBuf = endpoint.getSendBuf();
-		sendBuf.asCharBuffer().put("Hello from the client");
+		sendBuf.asCharBuffer().put("200");
 		sendBuf.clear();
 		SVCPostSend postSend = endpoint.postSend(endpoint.getWrList_send());
 		postSend.getWrMod(0).setWr_id(4444);
@@ -73,13 +73,13 @@ public class SendRecvClient implements RdmaEndpointFactory<SendRecvClient.Custom
 		IbvWC wc = endpoint.getWcEvents().take();
 		System.out.println("SimpleClient::message sent, wr_id " + wc.getWr_id());
 		//in this case a new CQ event means we have received data
-		endpoint.getWcEvents().take();
-		System.out.println("SimpleClient::message received");
-
-		//the response should be received in this buffer, let's print it
-		ByteBuffer recvBuf = endpoint.getRecvBuf();
-		recvBuf.clear();
-		System.out.println("Message from the server: " + recvBuf.asCharBuffer().toString());
+//		endpoint.getWcEvents().take();
+//		System.out.println("SimpleClient::message received");
+//
+//		//the response should be received in this buffer, let's print it
+//		ByteBuffer recvBuf = endpoint.getRecvBuf();
+//		recvBuf.clear();
+//		System.out.println("Message from the server: " + recvBuf.asCharBuffer().toString());
 
 		//close everything
 		endpoint.close();
