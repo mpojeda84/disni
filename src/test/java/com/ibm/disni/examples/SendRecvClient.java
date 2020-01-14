@@ -42,7 +42,7 @@ public class SendRecvClient implements RdmaEndpointFactory<SendRecvClient.Custom
 	private int port;
 
 	public SendRecvClient.CustomClientEndpoint createEndpoint(RdmaCmId idPriv, boolean serverSide) throws IOException {
-		return new CustomClientEndpoint(endpointGroup, idPriv, serverSide, 20);
+		return new CustomClientEndpoint(endpointGroup, idPriv, serverSide, 100);
 	}
 
 	public void run() throws Exception {
@@ -62,6 +62,7 @@ public class SendRecvClient implements RdmaEndpointFactory<SendRecvClient.Custom
 		//in our custom endpoints we have prepared (memory registration and work request creation) some memory
 		//buffers beforehand.
 		//let's send one of those buffers out using a send operation
+		Thread.sleep(10000);
 		ByteBuffer sendBuf = endpoint.getSendBuf();
 		sendBuf.asLongBuffer().put(200);
 		sendBuf.clear();
