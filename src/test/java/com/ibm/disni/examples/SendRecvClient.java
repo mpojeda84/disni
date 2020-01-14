@@ -201,7 +201,7 @@ public class SendRecvClient implements RdmaEndpointFactory<SendRecvClient.Custom
 			wrList_recv.add(recvWR);
 
 			System.out.println("SimpleClient::initiated recv");
-			this.postRecv(wrList_recv).execute().free();
+			//this.postRecv(wrList_recv).execute().free();
 		}
 
 		public void dispatchCqEvent(IbvWC wc) throws IOException {
